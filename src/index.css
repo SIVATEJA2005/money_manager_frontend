@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Microsoft Edge / IE password reveal */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/* Chrome / Edge password autofill button */
+
+body{
+  font-family: 'Outfit', sans-serif;
+  background-color: #fcfbfc;
+  overflow-x: hidden;
+}
