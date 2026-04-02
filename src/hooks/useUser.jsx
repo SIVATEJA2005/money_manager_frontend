@@ -9,15 +9,12 @@ import { API_ENDPOINTS } from "../util/ApiEndPoints.js";
 export const useUser = () => {
     const navigate = useNavigate();
     const { user, setUser, clearUser } = useContext(AppContext);
- 
 
     useEffect(() => {
         if (user) {
             return;
         }
-
         let isMounted = true;
-
         const fetchUserInfo = async () => {
             try {
                 const response = await axiosConfig.get(API_ENDPOINTS.GET_USER_INFO);

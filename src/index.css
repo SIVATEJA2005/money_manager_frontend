@@ -6,6 +6,14 @@ input[type="password"]::-ms-clear {
   display: none;
 }
 
+.add-btn {
+    background-color: #22c55e; /* This is Tailwind's green-500 */
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
 /* Chrome / Edge password autofill button */
 
 body{
