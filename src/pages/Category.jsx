@@ -8,6 +8,7 @@ import { API_ENDPOINTS } from "../util/ApiEndPoints.js";
 import { toast } from "react-hot-toast";
 import { useState } from 'react';
 import Model from "../components/Model.jsx";
+import AddCategoryForm from '../components/AddCategoryForm.jsx';
 
 const Category = () => {
     useUser();
@@ -64,7 +65,7 @@ const Category = () => {
                     isOpen={openAddCategoryModal}
                     onClose={() => setOpenAddCategoryModal(false)}
                 >
-                    category form
+                    <AddCategoryForm/>
                 </Model>
 
                 {/* Updating category modal */}
