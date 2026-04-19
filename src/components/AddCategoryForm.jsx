@@ -2,51 +2,79 @@ import React from 'react'
 import { useState } from 'react';  
 import Input from "./Input.jsx"; 
 import EmojiPickerPopup from './EmojiPickerPopup.jsx';
+import { LoaderCircle } from "lucide-react";
 
-const AddCategoryForm = () => {
+const AddCategoryForm = ({ onAddCategory }) => {
   
-        const [category, setCategory] = useState({
-            name: "",
-            type: "income",
-            icon: ""
-        });
+    const [category, setCategory] = useState({
+        name: "",
+        type: "income",
+        icon: ""
+    });
 
-        const categoryTypeOptions = [
-            { value: "income", label: "Income" },
-            { value: "expense", label: "Expense" },
-        ];
+    const [loading, setLoading] = useState(false);
+    
+    const categoryTypeOptions = [
+        { value: "income", label: "Income" },
+        { value: "expense", label: "Expense" },
+    ];
 
-       const handleChange = (key, value) => {
-                setCategory({ ...category, [key]: value });
-            };
+    const handleChange = (key, value) => {
+        setCategory({ ...category, [key]: value });
+    };
 
-        return (
-            <div className="p-4">
+    const handleSubmit = async () => {
+        setLoading(true);
+        try {
+            await onAddCategory(category);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-                <EmojiPickerPopup
-                    icon={category.icon}
-                    onSelect={(selectedIcon) => handleChange("icon", selectedIcon)}
-                    />
+    return (
+        <div className="p-4">
 
-                <Input 
-                    value={category.name}
-                    onChange={({target}) => handleChange("name", target.value)}
-                    label="Category Name"
-                    placeholder="e.g., Freelance, Salary, Groceries"
-                    type="text"
-                />
+            <EmojiPickerPopup
+                icon={category.icon}
+                onSelect={(selectedIcon) => handleChange("icon", selectedIcon)}
+            />
 
-                  <Input
-                        label="Category Type"
-                        value={category.type}
-                        onChange={({ target }) => handleChange("type", target.value)}
-                        isSelect={true}
-                        options={categoryTypeOptions}
-                    />
-                    
+            <Input 
+                value={category.name}
+                onChange={({ target }) => handleChange("name", target.value)}
+                label="Category Name"
+                placeholder="e.g., Freelance, Salary, Groceries"
+                type="text"
+            />
+
+            <Input
+                label="Category Type"
+                value={category.type}
+                onChange={({ target }) => handleChange("type", target.value)}
+                isSelect={true}
+                options={categoryTypeOptions}
+            />
+
+            <div className="flex justify-end mt-6">
+                <button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={loading}
+                    className="add-btn add-btn-fill flex items-center gap-2"
+                >
+                    {loading ? (
+                        <>
+                            <LoaderCircle className="w-4 h-4 animate-spin" />
+                            Adding...
+                        </>
+                    ) : (
+                        "Add Category"
+                    )}
+                </button>
             </div>
+        </div>
+    );
+};
 
-        );
-}
-
-export default AddCategoryForm
+export default AddCategoryForm;

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import DashBoard from "../components/DashBoard.jsx";
 import { useUser } from "../hooks/useUser.jsx";
-import CategoryList  from "../components/CategoryList.jsx"
+import CategoryList from "../components/CategoryList.jsx";
 import { Plus } from "lucide-react";
 import axiosConfig from "../util/axiosConfig.js";
 import { API_ENDPOINTS } from "../util/ApiEndPoints.js";
@@ -24,7 +24,7 @@ const Category = () => {
         setLoading(true);
 
         try {
-            const response = await axiosConfig.get(API_ENDPOINTS.GET_ALL_CATEGORIES + "/get");
+            const response = await axiosConfig.get(API_ENDPOINTS.GET_ALL_CATEGORIES);
             if (response.status === 200) {
                 console.log('categories', response.data);
                 setCategoryData(response.data);
@@ -35,17 +35,52 @@ const Category = () => {
         } finally {
             setLoading(false);
         }
-
     };
 
     useEffect(() => {   
         fetchCategoryDetails();
-    }, [])
+    }, []);
+
+    const handleAddCategory = async (category) => {
+        const { name, type, icon } = category;
+        if (!name.trim()) {
+            toast.error("Category Name is required");
+            return;
+        }
+
+        const isDuplicate = categoryData.some(
+            (category) => category.name.trim().toLowerCase() === name.trim().toLowerCase()
+            );
+
+            if (isDuplicate) {
+            toast.error("Category Name already exists");
+            return;
+            }
+
+
+        try {
+            const response = await axiosConfig.post(
+                API_ENDPOINTS.ADD_CATEGORY,
+                { name, type, icon } 
+            );
+
+            if (response.status === 201) {
+                toast.success("Category added successfully");
+                setOpenAddCategoryModal(false);
+                fetchCategoryDetails();
+            }
+        } catch (error) {
+            console.error("Error adding category:", error);
+            toast.error(error.response?.data?.message || "Failed to add category.");
+        }
+    };
+
+   
 
     return (
         <DashBoard activeMenu="Category">
             <div className="my-5 mx-auto">
-                {/* Add button to add category */}
+
                 <div className="flex justify-between items-center mb-5">
                     <h2 className="text-2xl font-semibold">All Categories</h2>
                     <button
@@ -55,23 +90,20 @@ const Category = () => {
                         Add Category
                     </button>
                 </div>
-                {/* Category list */}
-                <CategoryList categories={categoryData}/>
 
-                {/* Adding category modal */}
+                <CategoryList categories={categoryData} onEditCategory={handleEditCategory}/>
 
                 <Model
                     title="Add Category"
                     isOpen={openAddCategoryModal}
                     onClose={() => setOpenAddCategoryModal(false)}
                 >
-                    <AddCategoryForm/>
+                    <AddCategoryForm onAddCategory={handleAddCategory} />
                 </Model>
 
-                {/* Updating category modal */}
             </div>
         </DashBoard>
     );
 };
 
-export default Category
+export default Category;
