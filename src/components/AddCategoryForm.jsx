@@ -3,8 +3,9 @@ import { useState } from 'react';
 import Input from "./Input.jsx"; 
 import EmojiPickerPopup from './EmojiPickerPopup.jsx';
 import { LoaderCircle } from "lucide-react";
+import { useEffect } from 'react';
 
-const AddCategoryForm = ({ onAddCategory }) => {
+const AddCategoryForm = ({ onAddCategory,initialCategoryData,isEditing }) => {
   
     const [category, setCategory] = useState({
         name: "",
@@ -31,6 +32,18 @@ const AddCategoryForm = ({ onAddCategory }) => {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (isEditing && initialCategoryData) {
+            setCategory(initialCategoryData);
+        } else {
+            setCategory({
+            name: "",
+            type: "income",
+            icon: "",
+            });
+        }
+    }, [isEditing, initialCategoryData]);
 
     return (
         <div className="p-4">
@@ -63,14 +76,16 @@ const AddCategoryForm = ({ onAddCategory }) => {
                     disabled={loading}
                     className="add-btn add-btn-fill flex items-center gap-2"
                 >
-                    {loading ? (
-                        <>
-                            <LoaderCircle className="w-4 h-4 animate-spin" />
-                            Adding...
-                        </>
+                 {loading ? (
+                    <>
+                        <LoaderCircle className="w-4 h-4 animate-spin" />
+                        {isEditing ? "Updating..." : "Adding..."}
+                    </>
                     ) : (
-                        "Add Category"
-                    )}
+                    <>
+                        {isEditing ? "Update Category" : "Add Category"}
+                    </>
+                )}
                 </button>
             </div>
         </div>

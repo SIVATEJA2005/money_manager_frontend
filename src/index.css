@@ -7,11 +7,35 @@ input[type="password"]::-ms-clear {
 }
 
 .add-btn {
-    background-color: #22c55e; /* This is Tailwind's green-500 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Using a softer Emerald/Forest green instead of bright lime green */
+    background-color: #10b981; 
     color: white;
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: background 0.2s;
+    
+    /* Dynamic sizing: Padding creates the shape, not fixed width/height */
+    padding: 0.5rem 1rem; 
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    
+    /* Effects */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #059669; /* Darker green on hover */
+    transform: translateY(-1px); /* Subtle lift effect */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.add-btn:active {
+    transform: translateY(0);
 }
 
 /* Chrome / Edge password autofill button */

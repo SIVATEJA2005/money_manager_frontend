@@ -75,7 +75,35 @@ const Category = () => {
         }
     };
 
-   
+    const handleEditCategory = async (categoryToEdit) => {
+        setSelectedCategory(categoryToEdit);
+        setOpenEditCategoryModal(true);
+    }
+
+    const handleUpdateCategory = async (updatedCategory) => {
+        const { id, name, type, icon } = updatedCategory;
+        
+        if (!name.trim()) {
+            toast.error("Category Name is required");
+            return;
+        }
+
+        if (!id) {
+            toast.error("Category ID is missing for update");
+            return;
+        }
+
+       try {
+            await axiosConfig.put(API_ENDPOINTS.UPDATE_CATEGORY(id), { name, type, icon });
+            setOpenEditCategoryModal(false);
+            setSelectedCategory(null);
+            toast.success("Category updated successfully");
+            fetchCategoryDetails();
+        } catch (error) {
+            console.error('Error updating category:', error.response?.data?.message || error.message);
+            toast.error(error.response?.data?.message || "Failed to update category.");
+        }
+    }
 
     return (
         <DashBoard activeMenu="Category">
@@ -90,9 +118,7 @@ const Category = () => {
                         Add Category
                     </button>
                 </div>
-
                 <CategoryList categories={categoryData} onEditCategory={handleEditCategory}/>
-
                 <Model
                     title="Add Category"
                     isOpen={openAddCategoryModal}
@@ -101,6 +127,20 @@ const Category = () => {
                     <AddCategoryForm onAddCategory={handleAddCategory} />
                 </Model>
 
+                <Model
+                    onClose={() => {
+                        setOpenEditCategoryModal(false);
+                        setSelectedCategory(null);
+                    }}
+                    isOpen={openEditCategoryModal}
+                    title="Update Category"
+                    >
+                    <AddCategoryForm 
+                          initialCategoryData={selectedCategory}
+                            onAddCategory={handleUpdateCategory}
+                            isEditing={true}
+                    />
+                </Model>
             </div>
         </DashBoard>
     );
