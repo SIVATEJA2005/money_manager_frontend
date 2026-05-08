@@ -27,7 +27,10 @@ const ExpenseList = ({ transactions, onDelete, onDownload, onEmail }) => {
   return (
     <div className="bg-white shadow-sm border border-gray-200 rounded-2xl p-5">
       <div className="flex items-center justify-between mb-4">
-        <h5 className="text-lg font-semibold text-gray-800">Expense Sources</h5>
+        <h5 className="text-lg font-semibold text-gray-800">
+          Expense Sources
+        </h5>
+
         <div className="flex items-center gap-2">
           <button
             disabled={loading}
@@ -35,27 +38,41 @@ const ExpenseList = ({ transactions, onDelete, onDownload, onEmail }) => {
             onClick={handleEmail}
           >
             {loading ? (
-              <><LoaderCircle className="w-4 h-4 animate-spin" />Emailing...</>
+              <>
+                <LoaderCircle className="w-4 h-4 animate-spin" />
+                Emailing...
+              </>
             ) : (
-              <><Mail size={16} />Email</>
+              <>
+                <Mail size={16} />
+                Email
+              </>
             )}
           </button>
+
           <button
             disabled={loading}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white
-            bg-gradient-to-r from-orange-500 to-orange-700
-            rounded-lg hover:from-orange-600 hover:to-orange-800
+            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white 
+            bg-gradient-to-r from-purple-600 to-purple-800 
+            rounded-lg hover:from-purple-700 hover:to-purple-900 
             transition shadow-sm"
             onClick={handleDownload}
           >
             {loading ? (
-              <><LoaderCircle className="w-4 h-4 animate-spin" />Downloading...</>
+              <>
+                <LoaderCircle className="w-4 h-4 animate-spin" />
+                Downloading...
+              </>
             ) : (
-              <><Download size={16} />Download</>
+              <>
+                <Download size={16} />
+                Download
+              </>
             )}
           </button>
         </div>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2">
         {transactions?.map((expense) => (
           <TransactionInfoCard

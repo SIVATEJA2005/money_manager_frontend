@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { prepareExpenseLineChartData } from '../util/chartDataPreparation';
 import {
-  ResponsiveContainer, LineChart, Line,
-  XAxis, YAxis, Tooltip, CartesianGrid,
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
 } from 'recharts';
 
 const ExpenseOverview = ({ transactions }) => {
+
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     const result = prepareExpenseLineChartData(transactions);
+    console.log(result);
     setChartData(result);
+    return () => {};
   }, [transactions]);
 
   return (
@@ -33,7 +41,7 @@ const ExpenseOverview = ({ transactions }) => {
             <Line
               type="monotone"
               dataKey="amount"
-              stroke="#f97316"
+              stroke="#875cf5"
               strokeWidth={2}
               dot={false}
               activeDot={{ r: 5 }}
