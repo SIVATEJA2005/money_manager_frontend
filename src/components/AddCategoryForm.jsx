@@ -1,12 +1,10 @@
-import React from 'react'
-import { useState } from 'react';  
-import Input from "./Input.jsx"; 
+import React, { useState, useEffect } from 'react';
+import Input from "./Input.jsx";
 import EmojiPickerPopup from './EmojiPickerPopup.jsx';
 import { LoaderCircle } from "lucide-react";
-import { useEffect } from 'react';
 
-const AddCategoryForm = ({ onAddCategory,initialCategoryData,isEditing }) => {
-  
+const AddCategoryForm = ({ onAddCategory, initialCategoryData, isEditing }) => {
+
     const [category, setCategory] = useState({
         name: "",
         type: "income",
@@ -14,20 +12,23 @@ const AddCategoryForm = ({ onAddCategory,initialCategoryData,isEditing }) => {
     });
 
     const [loading, setLoading] = useState(false);
-    
+
     const categoryTypeOptions = [
         { value: "income", label: "Income" },
         { value: "expense", label: "Expense" },
     ];
 
     const handleChange = (key, value) => {
-        setCategory({ ...category, [key]: value });
+        setCategory((prev) => ({ ...prev, [key]: value }));
     };
 
     const handleSubmit = async () => {
         setLoading(true);
         try {
             await onAddCategory(category);
+            if (!isEditing) {
+                setCategory({ name: "", type: "income", icon: "" });
+            }
         } finally {
             setLoading(false);
         }
@@ -37,11 +38,7 @@ const AddCategoryForm = ({ onAddCategory,initialCategoryData,isEditing }) => {
         if (isEditing && initialCategoryData) {
             setCategory(initialCategoryData);
         } else {
-            setCategory({
-            name: "",
-            type: "income",
-            icon: "",
-            });
+            setCategory({ name: "", type: "income", icon: "" });
         }
     }, [isEditing, initialCategoryData]);
 
@@ -53,7 +50,7 @@ const AddCategoryForm = ({ onAddCategory,initialCategoryData,isEditing }) => {
                 onSelect={(selectedIcon) => handleChange("icon", selectedIcon)}
             />
 
-            <Input 
+            <Input
                 value={category.name}
                 onChange={({ target }) => handleChange("name", target.value)}
                 label="Category Name"
@@ -76,16 +73,16 @@ const AddCategoryForm = ({ onAddCategory,initialCategoryData,isEditing }) => {
                     disabled={loading}
                     className="add-btn add-btn-fill flex items-center gap-2"
                 >
-                 {loading ? (
-                    <>
-                        <LoaderCircle className="w-4 h-4 animate-spin" />
-                        {isEditing ? "Updating..." : "Adding..."}
-                    </>
+                    {loading ? (
+                        <>
+                            <LoaderCircle className="w-4 h-4 animate-spin" />
+                            {isEditing ? "Updating..." : "Adding..."}
+                        </>
                     ) : (
-                    <>
-                        {isEditing ? "Update Category" : "Add Category"}
-                    </>
-                )}
+                        <>
+                            {isEditing ? "Update Category" : "Add Category"}
+                        </>
+                    )}
                 </button>
             </div>
         </div>

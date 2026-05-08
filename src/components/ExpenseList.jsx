@@ -1,0 +1,76 @@
+import React, { useState } from "react";
+import { Download, Mail, LoaderCircle } from "lucide-react";
+import moment from "moment";
+import TransactionInfoCard from "./TranscationInformationCard.jsx";
+
+const ExpenseList = ({ transactions, onDelete, onDownload, onEmail }) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleEmail = async () => {
+    setLoading(true);
+    try {
+      await onEmail();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDownload = async () => {
+    setLoading(true);
+    try {
+      await onDownload();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-white shadow-sm border border-gray-200 rounded-2xl p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h5 className="text-lg font-semibold text-gray-800">Expense Sources</h5>
+        <div className="flex items-center gap-2">
+          <button
+            disabled={loading}
+            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+            onClick={handleEmail}
+          >
+            {loading ? (
+              <><LoaderCircle className="w-4 h-4 animate-spin" />Emailing...</>
+            ) : (
+              <><Mail size={16} />Email</>
+            )}
+          </button>
+          <button
+            disabled={loading}
+            className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white
+            bg-gradient-to-r from-orange-500 to-orange-700
+            rounded-lg hover:from-orange-600 hover:to-orange-800
+            transition shadow-sm"
+            onClick={handleDownload}
+          >
+            {loading ? (
+              <><LoaderCircle className="w-4 h-4 animate-spin" />Downloading...</>
+            ) : (
+              <><Download size={16} />Download</>
+            )}
+          </button>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {transactions?.map((expense) => (
+          <TransactionInfoCard
+            key={expense.id}
+            title={expense.name}
+            icon={expense.icon}
+            date={moment(expense.date).format("Do MMM YYYY")}
+            amount={expense.amount}
+            type="expense"
+            onDelete={() => onDelete(expense.id)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ExpenseList;

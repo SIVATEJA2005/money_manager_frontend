@@ -49,7 +49,7 @@ const Category = () => {
         }
 
         const isDuplicate = categoryData.some(
-            (category) => category.name.trim().toLowerCase() === name.trim().toLowerCase()
+            (category) => category.name?.trim().toLowerCase() === name.trim().toLowerCase()
             );
 
             if (isDuplicate) {
@@ -92,7 +92,7 @@ const Category = () => {
             toast.error("Category ID is missing for update");
             return;
         }
-
+        console.log(type);
        try {
             await axiosConfig.put(API_ENDPOINTS.UPDATE_CATEGORY(id), { name, type, icon });
             setOpenEditCategoryModal(false);
@@ -104,11 +104,9 @@ const Category = () => {
             toast.error(error.response?.data?.message || "Failed to update category.");
         }
     }
-
     return (
         <DashBoard activeMenu="Category">
             <div className="my-5 mx-auto">
-
                 <div className="flex justify-between items-center mb-5">
                     <h2 className="text-2xl font-semibold">All Categories</h2>
                     <button
@@ -126,7 +124,6 @@ const Category = () => {
                 >
                     <AddCategoryForm onAddCategory={handleAddCategory} />
                 </Model>
-
                 <Model
                     onClose={() => {
                         setOpenEditCategoryModal(false);
