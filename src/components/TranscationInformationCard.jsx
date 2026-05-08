@@ -1,6 +1,6 @@
 import { UtensilsCrossed } from "lucide-react";
 import { Trash2 } from "lucide-react";
-import { addThousandsSeparator } from "../assets/addThousandsSeparator"; 
+import { addThousandsSeparator } from "../util/addThousandsSeparator"; 
 import { TrendingUp, TrendingDown } from "lucide-react";
 
 const TransactionInformationCard = ({
