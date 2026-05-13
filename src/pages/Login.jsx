@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-import assets from "../assets/assets";
-import Input from "../components/Input";
+import assets from "../assets/assets.js";
+import Input from "../components/Input.jsx";
 import { validateEmail } from "../util/ValidateEmail.js";
 import axiosConfig from "../util/axiosConfig.js";
 import { API_ENDPOINTS } from "../util/ApiEndPoints.js";
 import AppContext from "../Context/AppContext.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");

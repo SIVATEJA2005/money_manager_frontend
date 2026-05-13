@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import assets from "../assets/assets";
+import assets from "../assets/assets.js";
 import Input from "../components/Input";
 import { Link } from "react-router-dom";
 import { validateEmail } from "../util/ValidateEmail.js";

@@ -35,7 +35,7 @@
 
 import React from 'react'
 import { useEffect, useState } from 'react';
-import { prepareIncomeLineChartData } from '../util/chartDataPreparation';
+import { prepareIncomeLineChartData } from '../util/chartDataPreparation.js';
 import {
   ResponsiveContainer,
   LineChart,

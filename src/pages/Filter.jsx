@@ -3,7 +3,7 @@ import DashBoard from "../components/DashBoard.jsx";
 import { useUser } from '../hooks/useUser.jsx';
 import { Search, LoaderCircle } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-import axiosConfig from '../util/axiosConfig';
+import axiosConfig from '../util/axiosConfig.js';
 import { API_ENDPOINTS } from '../util/ApiEndPoints.js';
 import TransactionInfoCard from '../components/TranscationInformationCard.jsx';
 import moment from 'moment';
