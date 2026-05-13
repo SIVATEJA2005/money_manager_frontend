@@ -1,7 +1,7 @@
 import {BrowserRouter,Route,Routes, useNavigate} from "react-router-dom"
 import Home from "./pages/Home.jsx"
 import Login from "./pages/Login.jsx"
-import Signup from "./pages/signup.jsx"
+import Signup from "./pages/Signup.jsx"
 import Category from "./pages/Category.jsx"
 import Income from "./pages/Income.jsx"
 import Expense from "./pages/Expense.jsx"
