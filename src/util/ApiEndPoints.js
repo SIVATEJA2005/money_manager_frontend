@@ -1,8 +1,8 @@
 // Your deployed Render Backend URL
-// export const BASE_URL = "https://money-manager-api-xn32.onrender.com/api/v1.0";
+export const BASE_URL = "https://money-manager-api-472j.onrender.com/api/v1.0";
 
 // Switch this back for local development
-export const BASE_URL = "http://localhost:8080/api/v1.0";
+// export const BASE_URL = "http://localhost:8080/api/v1.0";
 const CLOUDINARY_CLOUD_NAME = "dqgcnwmj4";
 export const API_ENDPOINTS = {
     LOGIN: "/login",
