@@ -3,7 +3,7 @@ import DashBoard from "../components/DashBoard.jsx";
 import { useUser } from '../hooks/useUser.jsx';
 import { toast } from 'react-hot-toast';
 import axiosConfig from '../util/axiosConfig.js';
-import { API_ENDPOINTS } from '../util/ApiEndpoints.js';
+import { API_ENDPOINTS } from '../util/ApiEndPoints.js';
 import { Plus } from 'lucide-react';
 import IncomeList from '../components/IncomeList.jsx';
 import Model from '../components/Model.jsx';
